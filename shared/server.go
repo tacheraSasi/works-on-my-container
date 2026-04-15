@@ -4,5 +4,5 @@ import "net"
 
 
 func StartGRPCServer(port string) (net.Listener, error) {
-	return net.Listen("tcp",port)
+    return net.Listen("tcp", ":" + port)
 }

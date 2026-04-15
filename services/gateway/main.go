@@ -8,6 +8,7 @@ import (
 	pb "works-on-my-machine/proto/user"
 
 	"google.golang.org/grpc"
+	"google.golang.org/grpc/credentials/insecure"
 )
 
 type clients struct {
@@ -17,7 +18,6 @@ type clients struct {
 func connectToClients(clients *clients) (*clients, error) {
 	return clients, nil
 }
-
 
 func handler(usersClient pb.UserServiceClient) http.HandlerFunc {
 	return func(w http.ResponseWriter, r *http.Request) {
@@ -31,12 +31,14 @@ func handler(usersClient pb.UserServiceClient) http.HandlerFunc {
 		}
 
 		fmt.Fprintf(w, "Hello from gateway! User: %s", resp.Name)
-}
-	
+	}
+
 }
 
 func main() {
-	conn, err := grpc.NewClient("users-service:8081")
+	conn, err := grpc.NewClient("users-service:8081",
+		grpc.WithTransportCredentials(insecure.NewCredentials()),
+	)
 	if err != nil {
 		fmt.Println("Failed to connect to users service:", err)
 		return
@@ -48,7 +50,7 @@ func main() {
 	clients := &clients{
 		userService: usersServiceClient,
 	}
-	
+
 	c, err := connectToClients(clients)
 	if err != nil {
 		fmt.Println("Failed to connect to clients:", err)
