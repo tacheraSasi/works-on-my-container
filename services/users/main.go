@@ -6,12 +6,12 @@ import (
 )
 
 func handler(w http.ResponseWriter, r *http.Request) {
-	fmt.Fprintf(w, "Hello from Dockerized Go API")
+	fmt.Fprintf(w, "Hello from users service!")
 }
 
 func main() {
 	http.HandleFunc("/", handler)
 
-	fmt.Println("Server running on :8080")
-	http.ListenAndServe(":8080", nil)
+	fmt.Println("Server running on :8081")
+	http.ListenAndServe(":8081", nil)
 }

@@ -1,8 +1,8 @@
-version: "3.9"
-
 services:
   gateway:
-    build: ./services/gateway
+    build:
+      context: .
+      dockerfile: ./services/gateway/Dockerfile
     ports:
       - "8080:8080"
     depends_on:
@@ -10,7 +10,9 @@ services:
       - redis
   
   users-service:
-    build: ./services/users
+    build:
+      context: .
+      dockerfile: ./services/users/Dockerfile
     ports:
       - "8081:8081"
     depends_on:
