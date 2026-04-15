@@ -4,20 +4,20 @@ import (
 	"context"
 	"fmt"
 	"log"
-	"works-on-my-machine/proto/user"
+	pb "works-on-my-machine/proto/user"
 	"works-on-my-machine/shared"
 
 	"google.golang.org/grpc"
 )
 
 type server struct {
-	user.UnimplementedUserServiceServer
+	pb.UnimplementedUserServiceServer
 }
 
-func (s *server) GetUser(ctx context.Context, req *user.GetUserRequest) (*user.GetUserResponse, error) {
+func (s *server) GetUser(ctx context.Context, req *pb.GetUserRequest) (*pb.GetUserResponse, error) {
 	log.Println("Received request for user:", req.Id)
 
-	return &user.GetUserResponse{
+	return &pb.GetUserResponse{
 		Id:   req.Id,
 		Name: "Tach",
 	}, nil
@@ -30,7 +30,7 @@ func main() {
 	}
 
 	grpcServer := grpc.NewServer()
-	user.RegisterUserServiceServer(grpcServer, &server{})
+	pb.RegisterUserServiceServer(grpcServer, &server{})
 
 	fmt.Println("Server running on :8081")
 	grpcServer.Serve(listener)
