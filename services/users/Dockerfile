@@ -5,4 +5,4 @@ RUN go mod download
 COPY . .
 RUN go build -o users-service ./services/users
 EXPOSE 8081
-CMD ["./worker-service"]
+CMD ["./users-service"]
