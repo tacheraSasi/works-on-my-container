@@ -42,24 +42,39 @@ func main() {
 	client := asynq.NewClient(asynq.RedisClientOpt{Addr: "redis:6379"})
 	defer client.Close()
 
-	// Enqueue immediately
-	task, _ := tasks.NewWelcomeEmailTask("123", "tach@example.com")
-	info, err := client.Enqueue(task)
-	println("Enqueued task with ID:", info.ID)
-	// info.ID gives you the task ID
-
-	// Enqueue with a delay (process in 5 minutes)
-	info, err = client.Enqueue(task, asynq.ProcessIn(5*time.Minute))
-
-	// Enqueue with max retry
-	info, err = client.Enqueue(task, asynq.MaxRetry(3))
-
-	// Enqueue to a specific queue with priority
-	info, err = client.Enqueue(task, asynq.Queue("critical"))
-
 	grpcServer := grpc.NewServer()
 	pb.RegisterUserServiceServer(grpcServer, &server{})
 
 	fmt.Println("Server running on :8081")
 	grpcServer.Serve(listener)
+}
+
+func sendEmailTask(client *asynq.Client)(string, error) {
+	// Enqueue immediately
+	task, _ := tasks.NewWelcomeEmailTask("123", "tach@example.com")
+	info, err := client.Enqueue(task)
+	if err != nil {
+		return "", err
+	}
+	println("Enqueued task with ID:", info.ID)
+	// info.ID gives you the task ID
+
+	// Enqueue with a delay (process in 5 minutes)
+	info, err = client.Enqueue(task, asynq.ProcessIn(5*time.Minute))
+	if err != nil {
+		return "", err
+	}
+
+	// Enqueue with max retry
+	info, err = client.Enqueue(task, asynq.MaxRetry(3))
+	if err != nil {
+		return "", err
+	}
+	// Enqueue to a specific queue with priority
+	info, err = client.Enqueue(task, asynq.Queue("critical"))
+	if err != nil {
+		return "", err
+	}
+	return "Email task enqueued with ID: " + info.ID, nil
+
 }
