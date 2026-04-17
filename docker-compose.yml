@@ -19,6 +19,13 @@ services:
       - postgres
       - redis
 
+  worker-service:
+    build:
+      context: .
+      dockerfile: ./services/worker/Dockerfile
+    depends_on:
+      - redis
+
   postgres:
     image: postgres:15
     environment:

@@ -5,7 +5,7 @@
 ## What's inside?
 
 * **Gateway** — HTTP API that pretends to know what it's doing, then asks other services via gRPC
-* **Users Service** — gRPC service that returns users. Currently just one guy named Tach
+* **Users Service** — gRPC service that returns users.
 * **PostgreSQL** — a real database for when JSON files stop being funny
 * **Redis** — sitting there, waiting to be useful
 * **Nginx** — reverse proxy. Still just here to look fancy
