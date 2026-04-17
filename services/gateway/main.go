@@ -30,7 +30,18 @@ func handler(usersClient pb.UserServiceClient) http.HandlerFunc {
 			return
 		}
 
+		emailResp, err := usersClient.SendEmail(ctx, &pb.SendEmailRequest{
+			To:      "tachera@example.com",
+			Subject: "Welcome!",
+			Body:    "Hello " + resp.Name + ", welcome to our service!",
+		})
+		if err != nil {
+			fmt.Fprintf(w, "Error calling SendEmail: %v", err)
+			return
+		}
+
 		fmt.Fprintf(w, "Hello from gateway! User: %s", resp.Name)
+		fmt.Fprintf(w, "Email send response: %s", emailResp.Message)
 	}
 
 }
