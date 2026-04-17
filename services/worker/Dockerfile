@@ -3,6 +3,6 @@ WORKDIR /app
 COPY go.mod go.sum* ./
 RUN go mod download
 COPY . .
-RUN go build -o users-service ./services/users
+RUN go build -o worker-service ./services/worker
 EXPOSE 8081
-CMD ["./workers-service"]
+CMD ["./worker-service"]

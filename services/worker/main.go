@@ -25,7 +25,7 @@ func main() {
 	)
 
 	mux := asynq.NewServeMux()
-	mux.HandleFunc("email:send", func(ctx context.Context, t *asynq.Task) error {
+	mux.HandleFunc(tasks.TypeWelcomeEmail, func(ctx context.Context, t *asynq.Task) error {
 		fmt.Printf("Received task: type=%s payload=%s\n", t.Type(), string(t.Payload()))
 		var p tasks.WelcomeEmailPayload
 		if err := json.Unmarshal(t.Payload(), &p); err != nil {

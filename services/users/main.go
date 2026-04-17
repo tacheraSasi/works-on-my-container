@@ -15,6 +15,7 @@ import (
 
 type server struct {
 	pb.UnimplementedUserServiceServer
+	asynqClient *asynq.Client
 }
 
 func (s *server) GetUser(ctx context.Context, req *pb.GetUserRequest) (*pb.GetUserResponse, error) {
@@ -29,8 +30,12 @@ func (s *server) GetUser(ctx context.Context, req *pb.GetUserRequest) (*pb.GetUs
 func (s *server) SendEmail(ctx context.Context, req *pb.SendEmailRequest) (*pb.SendEmailResponse, error) {
 	log.Println("Received request to send email to:", req.To)
 
+	msg, err := sendEmailTask(s.asynqClient)
+	if err != nil {
+		return nil, fmt.Errorf("failed to enqueue email task: %v", err)
+	}
 	return &pb.SendEmailResponse{
-		Message: "Email is being sent ",
+		Message: msg,
 	}, nil
 }
 
@@ -43,13 +48,13 @@ func main() {
 	defer client.Close()
 
 	grpcServer := grpc.NewServer()
-	pb.RegisterUserServiceServer(grpcServer, &server{})
+	pb.RegisterUserServiceServer(grpcServer, &server{asynqClient: client})
 
 	fmt.Println("Server running on :8081")
 	grpcServer.Serve(listener)
 }
 
-func sendEmailTask(client *asynq.Client)(string, error) {
+func sendEmailTask(client *asynq.Client) (string, error) {
 	// Enqueue immediately
 	task, _ := tasks.NewWelcomeEmailTask("123", "tach@example.com")
 	info, err := client.Enqueue(task)
