@@ -6,6 +6,17 @@ option go_package = "proto/user";
 
 service UserService {
   rpc GetUser (GetUserRequest) returns (GetUserResponse);
+  rpc SendEmail(SendEmailRequest) returns (SendEmailResponse);
+}
+
+message SendEmailRequest {
+  string to = 1;
+  string subject = 2;
+  string body = 3;
+}
+
+message SendEmailResponse {
+  string message = 1;
 }
 
 message GetUserRequest {

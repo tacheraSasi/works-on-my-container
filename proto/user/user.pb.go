@@ -21,6 +21,110 @@ const (
 	_ = protoimpl.EnforceVersion(protoimpl.MaxVersion - 20)
 )
 
+type SendEmailRequest struct {
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	To            string                 `protobuf:"bytes,1,opt,name=to,proto3" json:"to,omitempty"`
+	Subject       string                 `protobuf:"bytes,2,opt,name=subject,proto3" json:"subject,omitempty"`
+	Body          string                 `protobuf:"bytes,3,opt,name=body,proto3" json:"body,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *SendEmailRequest) Reset() {
+	*x = SendEmailRequest{}
+	mi := &file_proto_user_proto_msgTypes[0]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *SendEmailRequest) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*SendEmailRequest) ProtoMessage() {}
+
+func (x *SendEmailRequest) ProtoReflect() protoreflect.Message {
+	mi := &file_proto_user_proto_msgTypes[0]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use SendEmailRequest.ProtoReflect.Descriptor instead.
+func (*SendEmailRequest) Descriptor() ([]byte, []int) {
+	return file_proto_user_proto_rawDescGZIP(), []int{0}
+}
+
+func (x *SendEmailRequest) GetTo() string {
+	if x != nil {
+		return x.To
+	}
+	return ""
+}
+
+func (x *SendEmailRequest) GetSubject() string {
+	if x != nil {
+		return x.Subject
+	}
+	return ""
+}
+
+func (x *SendEmailRequest) GetBody() string {
+	if x != nil {
+		return x.Body
+	}
+	return ""
+}
+
+type SendEmailResponse struct {
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	Message       string                 `protobuf:"bytes,1,opt,name=message,proto3" json:"message,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *SendEmailResponse) Reset() {
+	*x = SendEmailResponse{}
+	mi := &file_proto_user_proto_msgTypes[1]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *SendEmailResponse) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*SendEmailResponse) ProtoMessage() {}
+
+func (x *SendEmailResponse) ProtoReflect() protoreflect.Message {
+	mi := &file_proto_user_proto_msgTypes[1]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use SendEmailResponse.ProtoReflect.Descriptor instead.
+func (*SendEmailResponse) Descriptor() ([]byte, []int) {
+	return file_proto_user_proto_rawDescGZIP(), []int{1}
+}
+
+func (x *SendEmailResponse) GetMessage() string {
+	if x != nil {
+		return x.Message
+	}
+	return ""
+}
+
 type GetUserRequest struct {
 	state         protoimpl.MessageState `protogen:"open.v1"`
 	Id            string                 `protobuf:"bytes,1,opt,name=id,proto3" json:"id,omitempty"`
@@ -30,7 +134,7 @@ type GetUserRequest struct {
 
 func (x *GetUserRequest) Reset() {
 	*x = GetUserRequest{}
-	mi := &file_proto_user_proto_msgTypes[0]
+	mi := &file_proto_user_proto_msgTypes[2]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -42,7 +146,7 @@ func (x *GetUserRequest) String() string {
 func (*GetUserRequest) ProtoMessage() {}
 
 func (x *GetUserRequest) ProtoReflect() protoreflect.Message {
-	mi := &file_proto_user_proto_msgTypes[0]
+	mi := &file_proto_user_proto_msgTypes[2]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -55,7 +159,7 @@ func (x *GetUserRequest) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use GetUserRequest.ProtoReflect.Descriptor instead.
 func (*GetUserRequest) Descriptor() ([]byte, []int) {
-	return file_proto_user_proto_rawDescGZIP(), []int{0}
+	return file_proto_user_proto_rawDescGZIP(), []int{2}
 }
 
 func (x *GetUserRequest) GetId() string {
@@ -75,7 +179,7 @@ type GetUserResponse struct {
 
 func (x *GetUserResponse) Reset() {
 	*x = GetUserResponse{}
-	mi := &file_proto_user_proto_msgTypes[1]
+	mi := &file_proto_user_proto_msgTypes[3]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -87,7 +191,7 @@ func (x *GetUserResponse) String() string {
 func (*GetUserResponse) ProtoMessage() {}
 
 func (x *GetUserResponse) ProtoReflect() protoreflect.Message {
-	mi := &file_proto_user_proto_msgTypes[1]
+	mi := &file_proto_user_proto_msgTypes[3]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -100,7 +204,7 @@ func (x *GetUserResponse) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use GetUserResponse.ProtoReflect.Descriptor instead.
 func (*GetUserResponse) Descriptor() ([]byte, []int) {
-	return file_proto_user_proto_rawDescGZIP(), []int{1}
+	return file_proto_user_proto_rawDescGZIP(), []int{3}
 }
 
 func (x *GetUserResponse) GetId() string {
@@ -121,14 +225,21 @@ var File_proto_user_proto protoreflect.FileDescriptor
 
 const file_proto_user_proto_rawDesc = "" +
 	"\n" +
-	"\x10proto/user.proto\x12\x04user\" \n" +
+	"\x10proto/user.proto\x12\x04user\"P\n" +
+	"\x10SendEmailRequest\x12\x0e\n" +
+	"\x02to\x18\x01 \x01(\tR\x02to\x12\x18\n" +
+	"\asubject\x18\x02 \x01(\tR\asubject\x12\x12\n" +
+	"\x04body\x18\x03 \x01(\tR\x04body\"-\n" +
+	"\x11SendEmailResponse\x12\x18\n" +
+	"\amessage\x18\x01 \x01(\tR\amessage\" \n" +
 	"\x0eGetUserRequest\x12\x0e\n" +
 	"\x02id\x18\x01 \x01(\tR\x02id\"5\n" +
 	"\x0fGetUserResponse\x12\x0e\n" +
 	"\x02id\x18\x01 \x01(\tR\x02id\x12\x12\n" +
-	"\x04name\x18\x02 \x01(\tR\x04name2E\n" +
+	"\x04name\x18\x02 \x01(\tR\x04name2\x83\x01\n" +
 	"\vUserService\x126\n" +
-	"\aGetUser\x12\x14.user.GetUserRequest\x1a\x15.user.GetUserResponseB\fZ\n" +
+	"\aGetUser\x12\x14.user.GetUserRequest\x1a\x15.user.GetUserResponse\x12<\n" +
+	"\tSendEmail\x12\x16.user.SendEmailRequest\x1a\x17.user.SendEmailResponseB\fZ\n" +
 	"proto/userb\x06proto3"
 
 var (
@@ -143,16 +254,20 @@ func file_proto_user_proto_rawDescGZIP() []byte {
 	return file_proto_user_proto_rawDescData
 }
 
-var file_proto_user_proto_msgTypes = make([]protoimpl.MessageInfo, 2)
+var file_proto_user_proto_msgTypes = make([]protoimpl.MessageInfo, 4)
 var file_proto_user_proto_goTypes = []any{
-	(*GetUserRequest)(nil),  // 0: user.GetUserRequest
-	(*GetUserResponse)(nil), // 1: user.GetUserResponse
+	(*SendEmailRequest)(nil),  // 0: user.SendEmailRequest
+	(*SendEmailResponse)(nil), // 1: user.SendEmailResponse
+	(*GetUserRequest)(nil),    // 2: user.GetUserRequest
+	(*GetUserResponse)(nil),   // 3: user.GetUserResponse
 }
 var file_proto_user_proto_depIdxs = []int32{
-	0, // 0: user.UserService.GetUser:input_type -> user.GetUserRequest
-	1, // 1: user.UserService.GetUser:output_type -> user.GetUserResponse
-	1, // [1:2] is the sub-list for method output_type
-	0, // [0:1] is the sub-list for method input_type
+	2, // 0: user.UserService.GetUser:input_type -> user.GetUserRequest
+	0, // 1: user.UserService.SendEmail:input_type -> user.SendEmailRequest
+	3, // 2: user.UserService.GetUser:output_type -> user.GetUserResponse
+	1, // 3: user.UserService.SendEmail:output_type -> user.SendEmailResponse
+	2, // [2:4] is the sub-list for method output_type
+	0, // [0:2] is the sub-list for method input_type
 	0, // [0:0] is the sub-list for extension type_name
 	0, // [0:0] is the sub-list for extension extendee
 	0, // [0:0] is the sub-list for field type_name
@@ -169,7 +284,7 @@ func file_proto_user_proto_init() {
 			GoPackagePath: reflect.TypeOf(x{}).PkgPath(),
 			RawDescriptor: unsafe.Slice(unsafe.StringData(file_proto_user_proto_rawDesc), len(file_proto_user_proto_rawDesc)),
 			NumEnums:      0,
-			NumMessages:   2,
+			NumMessages:   4,
 			NumExtensions: 0,
 			NumServices:   1,
 		},
